@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;500;600&display=swap");
+
+.video-section {
+  padding: 20px 10%;
+  background: #f9f9f9;
+  color: #222;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+
+/* Title identical to About section */
+.video-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  color: #6c63ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* Video description */
+.video-description {
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* Video wrapper */
+.video-wrapper {
+  position: relative; /* Important: parent for button positioning */
+  width: 100%;
+  max-width: 750px;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(30, 58, 138, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
+/* === YouTube Button inside the video frame (bottom-right) === */
+.youtube-overlay-btn {
+  position: absolute; /* Positioned inside the video frame */
+  bottom: 12px;
+  right: 12px;
+  background: #6c63ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  z-index: 10; /* Keeps it above iframe */
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(108, 99, 255, 0.3);
+}
+
+.youtube-overlay-btn:hover {
+  background: #5a54d1;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .video-wrapper {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding: 50px 6%;
+  }
+
+  .video-title {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+
+  .video-description {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .video-wrapper {
+    height: 250px;
+  }
+
+  .youtube-overlay-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    bottom: 8px;
+    right: 8px;
+  }
+}

@@ -1,0 +1,90 @@
+/* Import tech-style font */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap");
+
+.home-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+  margin-top: 70px;
+  background: url('src/assets/googly.png') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  overflow: hidden;
+  font-family: "Orbitron", sans-serif;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.home-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+}
+
+.home-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.home-content h1 span {
+  color: #61dafb; /* React blue */
+}
+
+.home-content p {
+  font-size: 1.3rem;
+  margin-top: 10px;
+  color: #dcdcdc;
+}
+
+/* React Icon Animation */
+.react-icon {
+  margin-top: 30px;
+}
+
+.react-icon .spin {
+  font-size: 3.5rem;
+  color: #61dafb;
+  animation: spin 4s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(97, 218, 251, 0.7));
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Optional bottom spacing */
+.home-section::after {
+  content: "";
+  display: block;
+  height: 60px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-content h1 {
+    font-size: 2rem;
+  }
+
+  .home-content p {
+    font-size: 1.1rem;
+  }
+
+  .react-icon .spin {
+    font-size: 2.5rem;
+  }
+
+  .home-section {
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+  }
+}

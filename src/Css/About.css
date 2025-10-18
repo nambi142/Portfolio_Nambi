@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;500;600&display=swap");
+
+.about-section {
+  padding: 70px 10%;
+  background: #f9f9f9;
+  color: #222;
+}
+
+.about-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  color: #6c63ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+/* Layout */
+.about-container {
+  display: flex;
+  align-items: flex-start; /* ensures image & text top align */
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* Image Styling */
+.about-image img {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 9 / 10;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Text Styling */
+.about-content {
+  flex: 1;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #333;
+}
+
+.about-content p {
+  margin-bottom: 18px;
+}
+
+.highlight {
+  color: #6c63ff;
+  font-weight: 600;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #f5a623; /* Gold color */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #d48806;
+}
+
+/* Social Icons Styling */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons .icon {
+  font-size: 1.5rem;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+}
+
+/* Permanent brand colors (no hover) */
+.icon.insta {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285AEB 90%
+  );
+}
+
+.icon.linkedin {
+  background-color: #0077b5;
+}
+
+.icon.facebook {
+  background-color: #1877f2;
+}
+
+.icon.github {
+  background-color: #333;
+}
+
+.icon.email {
+  background-color: #d44638;
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .about-container {
+    flex-direction: column;
+    align-items: center; /* Keep image centered */
+    text-align: left; /* Text starts from left edge */
+    padding: 15px; /* Padding around content */
+    gap: 15px; /* Space between image and content */
+    width: 100%;
+  }
+
+  .about-title {
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center; /* Title stays centered */
+  }
+
+  .about-image img {
+    max-width: 400px; /* Wider image */
+    width: 90%; /* Responsive width */
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .about-content {
+    text-align: left;
+    max-width: 100%; /* Full width */
+    width: 100%; /* Stretch content all the way */
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  .about-content p {
+    margin-bottom: 12px;
+  }
+
+  .highlight {
+    display: inline-block;
+  }
+}
+
+
+
+
+
