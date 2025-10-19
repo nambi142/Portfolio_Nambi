@@ -15,7 +15,12 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
 
     const handleClickOutside = (e) => {
-      if (menuOpen && menuRef.current && !menuRef.current.contains(e.target)) {
+      if (
+        menuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        !e.target.closest(".mobile-menu-icon")
+      ) {
         setMenuOpen(false);
       }
     };
@@ -28,31 +33,46 @@ const Header = () => {
   }, [menuOpen]);
 
   return (
-    <header className={`header ${scrolled ? "scrolled" : ""}`}>
-      <div className="logo">Muthu Nambi</div>
+    <>
+      <header className={`header ${scrolled ? "scrolled" : ""}`}>
+        <div className="logo">Muthu Nambi</div>
 
-      {/* Desktop Navigation */}
-      <nav className="nav-links desktop-nav">
-        <ScrollLink to="about" smooth={true} duration={500} className="link">
-          About
-        </ScrollLink>
-        <ScrollLink to="projects" smooth={true} duration={500} className="link">
-          Projects
-        </ScrollLink>
-        <ScrollLink to="video" smooth={true} duration={500} className="link">
-          Video
-        </ScrollLink>
-        <ScrollLink to="contact" smooth={true} duration={500} className="link">
-          Contact
-        </ScrollLink>
-      </nav>
+        {/* Desktop Navigation */}
+        <nav className="nav-links desktop-nav">
+          <ScrollLink to="about" smooth={true} duration={500} className="link">
+            About
+          </ScrollLink>
+          <ScrollLink
+            to="projects"
+            smooth={true}
+            duration={500}
+            className="link"
+          >
+            Projects
+          </ScrollLink>
+          <ScrollLink to="video" smooth={true} duration={500} className="link">
+            Video
+          </ScrollLink>
+          <ScrollLink
+            to="contact"
+            smooth={true}
+            duration={500}
+            className="link"
+          >
+            Contact
+          </ScrollLink>
+        </nav>
 
-      {/* Mobile Menu Button */}
-      <div className="mobile-menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <FaTimes /> : <FaBars />}
-      </div>
+        {/* Mobile Menu Button */}
+        <div
+          className="mobile-menu-icon"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </div>
+      </header>
 
-      {/* Mobile Slide Menu */}
+      {/* Mobile Slide Menu - Outside Header */}
       <div ref={menuRef} className={`mobile-nav ${menuOpen ? "open" : ""}`}>
         <ScrollLink
           to="about"
@@ -63,7 +83,6 @@ const Header = () => {
         >
           About
         </ScrollLink>
-
         <ScrollLink
           to="projects"
           smooth={true}
@@ -73,18 +92,16 @@ const Header = () => {
         >
           Projects
         </ScrollLink>
-
         <ScrollLink
           to="video"
           smooth={true}
           duration={500}
-          offset={-70} // for fixed header
+          offset={-70}
           className="link"
           onClick={() => setMenuOpen(false)}
         >
           Video
         </ScrollLink>
-
         <ScrollLink
           to="contact"
           smooth={true}
@@ -95,7 +112,7 @@ const Header = () => {
           Contact
         </ScrollLink>
       </div>
-    </header>
+    </>
   );
 };
 

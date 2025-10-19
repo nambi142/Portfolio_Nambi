@@ -103,9 +103,6 @@ body {
   }
 }
 
-/* ========================================
-   MOBILE VIEW FIXED VERSION
-======================================== */
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
@@ -114,12 +111,9 @@ body {
   .header {
     padding: 12px 16px;
     justify-content: space-between;
-  }
-
-  .logo {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #111;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
   }
 
   .mobile-menu-icon {
@@ -130,31 +124,30 @@ body {
     z-index: 1100;
   }
 
-  /* Fixed mobile nav layout */
+  /* Mobile menu now truly floating above all content */
   .mobile-nav {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    position: fixed;       /* FIXED instead of absolute */
+    top: 70px;             /* header height */
+    left: 50%;
+    transform: translateX(-50%);
     width: 94%;
     max-width: 500px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    transform: translateY(-30px);
     opacity: 0;
+    pointer-events: none;
     transition: all 0.4s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    z-index: 1050;
+    z-index: 2000;        /* above everything */
   }
 
   .mobile-nav.open {
-    transform: translateY(0);
     opacity: 1;
+    pointer-events: auto;
   }
 
   .mobile-nav .link {
@@ -182,3 +175,5 @@ body {
     box-shadow: 0 3px 12px rgba(108, 99, 255, 0.3);
   }
 }
+
+
