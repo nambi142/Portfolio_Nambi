@@ -1,12 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Orbitron:wght@600;700&display=swap");
 
+/* ========================================
+   GLOBAL RESET & LAYOUT FIX
+======================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* HEADER BASE */
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Prevent unwanted horizontal scroll */
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========================================
+   HEADER BASE
+======================================== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -21,6 +35,7 @@
   left: 0;
   z-index: 1000;
   transition: background 0.3s ease, box-shadow 0.3s ease;
+  overflow-x: hidden; /* Just in case header content overflows */
 }
 
 .header.scrolled {
@@ -28,7 +43,9 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* LOGO / NAME */
+/* ========================================
+   LOGO / BRAND
+======================================== */
 .logo {
   font-family: "Orbitron", sans-serif;
   font-size: 1.6rem;
@@ -39,7 +56,9 @@
   cursor: pointer;
 }
 
-/* NAV LINKS (Desktop) */
+/* ========================================
+   NAV LINKS (Desktop)
+======================================== */
 .nav-links {
   display: flex;
   align-items: center;
@@ -62,28 +81,31 @@
   color: #6c63ff;
 }
 
-/* Active link only when clicked */
 .link:active {
   background: linear-gradient(90deg, #6c63ff, #a020f0);
   color: #fff;
   box-shadow: 0 3px 12px rgba(108, 99, 255, 0.3);
 }
 
-/* =========================
-   MOBILE MENU (Fixed Properly)
-========================= */
+/* ========================================
+   MOBILE MENU ICON
+======================================== */
 .mobile-menu-icon {
   display: none;
 }
 
-/* Desktop only */
+/* ========================================
+   DESKTOP VIEW
+======================================== */
 @media (min-width: 769px) {
   .mobile-nav {
     display: none !important;
   }
 }
 
-/* Mobile only */
+/* ========================================
+   MOBILE VIEW FIXED VERSION
+======================================== */
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
@@ -108,11 +130,15 @@
     z-index: 1100;
   }
 
+  /* Fixed mobile nav layout */
   .mobile-nav {
     position: fixed;
     top: 70px;
-    right: 10px;
-    left: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 94%;
+    max-width: 500px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -124,7 +150,6 @@
     align-items: center;
     padding: 20px 0;
     z-index: 1050;
-    width: calc(100% - 20px);
   }
 
   .mobile-nav.open {
