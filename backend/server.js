@@ -7,6 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Root route for testing server
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
+
 app.post('/send-email', (req, res) => {
   const { name, email, phone, subject, message } = req.body;
 
