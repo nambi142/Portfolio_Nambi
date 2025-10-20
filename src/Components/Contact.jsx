@@ -47,12 +47,15 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      // FIXED: local backend URL
-      const response = await fetch("http://localhost:5000/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // Updated backend URL (Render)
+      const response = await fetch(
+        "https://portfolio-nambi-1.onrender.com/send-email",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await response.text();
       console.log(result); // optional: check backend response
