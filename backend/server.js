@@ -1,30 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const sgMail = require('@sendgrid/mail');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const sgMail = require("@sendgrid/mail");
+require("dotenv").config();
 
 const app = express();
 
 // ✅ CORS setup
-app.use(cors({ origin: '*', methods: ['GET', 'POST'] }));
+app.use(cors({ origin: "*", methods: ["GET", "POST"] }));
 app.use(express.json());
 
 // ✅ Set SendGrid API Key from .env
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Root route
-app.get('/', (req, res) => {
-  res.send('✅ Backend running with SendGrid!');
+app.get("/", (req, res) => {
+  res.send("✅ Backend running with SendGrid!");
 });
 
 // Send email route
-app.post('/send-email', async (req, res) => {
+app.post("/send-email", async (req, res) => {
   const { name, email, phone, subject, message } = req.body;
 
   try {
     const msg = {
-      to: process.env.EMAIL_USER,                // Receive messages
-      from: process.env.EMAIL_USER,              // Verified sender
+      to: process.env.RECEIVER_EMAIL,  // Receive messages
+      from: process.env.EMAIL_USER, // Verified sender
       templateId: process.env.SENDGRID_TEMPLATE_ID, // Dynamic Template ID
       dynamic_template_data: {
         name,
@@ -37,13 +37,14 @@ app.post('/send-email', async (req, res) => {
     };
 
     await sgMail.send(msg);
-    console.log('✅ Email sent successfully via SendGrid');
-    res.status(200).json({ success: true, message: 'Email sent successfully!' });
-
+    console.log("✅ Email sent successfully via SendGrid");
+    res
+      .status(200)
+      .json({ success: true, message: "Email sent successfully!" });
   } catch (err) {
-    console.error('❌ Error sending email:', err);
+    console.error("❌ Error sending email:", err);
     if (err.response) console.error(err.response.body);
-    res.status(500).json({ success: false, message: 'Failed to send email' });
+    res.status(500).json({ success: false, message: "Failed to send email" });
   }
 });
 
