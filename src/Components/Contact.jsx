@@ -40,38 +40,40 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const response = await fetch("https://portfolio-nambi-1.onrender.com/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  try {
+    const response = await fetch("https://portfolio-nambi-1.onrender.com/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-      if (!response.ok) throw new Error("Failed to send email");
-      const result = await response.text();
-      console.log(result);
+    const result = await response.json(); // parse JSON properly
 
-      alert("Message sent successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Failed to send message, please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (!result.success) throw new Error(result.message);
+
+    alert(result.message);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    });
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send message, please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section id="contact" className="contact-section">

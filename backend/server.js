@@ -1,21 +1,20 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
 const cors = require('cors');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
 const app = express();
 
-// ✅ CORS setup (allow frontend requests)
-app.use(cors({
-  origin: '*', // you can restrict this to your frontend URL later
-  methods: ['GET', 'POST']
-}));
-
+// ✅ CORS setup
+app.use(cors({ origin: '*', methods: ['GET', 'POST'] }));
 app.use(express.json());
+
+// ✅ Set SendGrid API Key from .env
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Server is running!');
+  res.send('✅ Backend running with SendGrid!');
 });
 
 // Send email route
@@ -23,42 +22,31 @@ app.post('/send-email', async (req, res) => {
   const { name, email, phone, subject, message } = req.body;
 
   try {
-    // ✅ Nodemailer transporter with explicit host/port for Gmail
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,       // SSL
-      secure: true,    // use SSL
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    // ✅ Verify connection
-    await transporter.verify();
-    console.log('✅ SMTP Server Ready');
-
-    // Mail options
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: subject || 'New Contact Form Message',
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
-      replyTo: email
+    const msg = {
+      to: process.env.EMAIL_USER,                // Receive messages
+      from: process.env.EMAIL_USER,              // Verified sender
+      templateId: process.env.SENDGRID_TEMPLATE_ID, // Dynamic Template ID
+      dynamic_template_data: {
+        name,
+        email,
+        phone,
+        subject,
+        message,
+        year: new Date().getFullYear(),
+      },
     };
 
-    // Send mail
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
-
+    await sgMail.send(msg);
+    console.log('✅ Email sent successfully via SendGrid');
     res.status(200).json({ success: true, message: 'Email sent successfully!' });
 
   } catch (err) {
-    console.error('Error sending email:', err);
-    res.status(500).json({ success: false, message: err.message });
+    console.error('❌ Error sending email:', err);
+    if (err.response) console.error(err.response.body);
+    res.status(500).json({ success: false, message: 'Failed to send email' });
   }
 });
 
-// Listen on port
+// Listen on port from .env
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
