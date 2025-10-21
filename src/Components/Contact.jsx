@@ -41,45 +41,37 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!validate()) return;
+    e.preventDefault();
+    if (!validate()) return;
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    // Use your Render backend URL
-    const response = await fetch("https://portfolio-nambi-1.onrender.com/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch("https://portfolio-nambi-1.onrender.com/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const result = await response.text();
-    console.log(result);
+      if (!response.ok) throw new Error("Failed to send email");
+      const result = await response.text();
+      console.log(result);
 
-    alert("Message sent successfully!");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error(error);
-    alert("Failed to send message, please try again.");
-  } finally {
-    setLoading(false);
-  }
-
-  // Optional WhatsApp link
-  const whatsappMessage = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nSubject: ${formData.subject}\nMessage: ${formData.message}`;
-  const whatsappUrl = `https://wa.me/YOUR_PHONE_NUMBER?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
-  window.open(whatsappUrl, "_blank");
-};
-
+      alert("Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message, please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section id="contact" className="contact-section">
