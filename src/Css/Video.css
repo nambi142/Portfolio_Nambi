@@ -57,28 +57,6 @@
   border-radius: 16px;
 }
 
-/* === YouTube Button inside the video frame (bottom-right) === */
-.youtube-overlay-btn {
-  position: absolute; /* Positioned inside the video frame */
-  bottom: 12px;
-  right: 12px;
-  background: #6c63ff;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-family: "Poppins", sans-serif;
-  z-index: 10; /* Keeps it above iframe */
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(108, 99, 255, 0.3);
-}
-
-.youtube-overlay-btn:hover {
-  background: #5a54d1;
-  transform: scale(1.05);
-}
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .video-wrapper {
@@ -105,10 +83,4 @@
     height: 250px;
   }
 
-  .youtube-overlay-btn {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    bottom: 8px;
-    right: 8px;
-  }
 }
