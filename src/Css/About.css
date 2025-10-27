@@ -127,8 +127,8 @@
 @media (max-width: 992px) {
   .about-container {
     flex-direction: column;
-    align-items: center; /* Keep image centered */
-    text-align: left; /* Text starts from left edge */
+    align-items: center; /* Keep image centered in the column layout */
+    text-align: left; /* Text stays left-aligned as you requested */
     padding: 15px; /* Padding around content */
     gap: 15px; /* Space between image and content */
     width: 100%;
@@ -140,14 +140,25 @@
     text-align: center; /* Title stays centered */
   }
 
+  /* --- Image: centered on the SCREEN, larger, and leaves icons below --- */
+  .about-image {
+    width: 100%;
+    /* ensure wrapper spans full viewport width so centering is aligned to screen */
+    display: block;
+    text-align: center; /* center inline-block image */
+  }
+
   .about-image img {
-    max-width: 400px; /* Wider image */
-    width: 90%; /* Responsive width */
+    /* use viewport-relative width so image centers and grows to fill screen nicely */
+    width: min(92vw, 640px); /* grows to 92% of viewport but never larger than 640px */
+    max-width: 100%;
     height: auto;
-    margin-bottom: 15px;
+    display: inline-block; /* so text-align:center on wrapper centers it exactly in the viewport */
+    margin: 0 0 15px 0; /* keeps social icons below the image */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
+  /* --- end image rules --- */
 
   .about-content {
     text-align: left;
@@ -165,6 +176,7 @@
     display: inline-block;
   }
 }
+
 
 
 
