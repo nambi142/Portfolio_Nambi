@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 
 // ✅ CORS setup
-app.use(cors({ origin: "*", methods: ["GET", "POST"] }));
+app.use(cors({ origin: "*", methods: ["GET", "POST"] })); 
 app.use(express.json());
 
 // ✅ Set SendGrid API Key from .env
