@@ -1,34 +1,53 @@
-const express = require('express'); 
-const nodemailer = require('nodemailer');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const sgMail = require("@sendgrid/mail");
+require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS setup
+app.use(cors({ origin: "*", methods: ["GET", "POST"] })); 
 app.use(express.json());
 
-app.post('/send-email', (req, res) => {
-  const { name, email, phone, subject, message } = req.body;
+// ✅ Set SendGrid API Key from .env
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
-
-  const mailOptions = {
-    from: email,
-    to: process.env.EMAIL_USER,
-    subject,
-    text: `Name: ${name}\nPhone: ${phone}\nMessage: ${message}`
-  };
-
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) return res.status(500).send(err.toString());
-    res.send('Email sent: ' + info.response);
-  });
+// Root route
+app.get("/", (req, res) => {
+  res.send("✅ Backend running with SendGrid!");
 });
 
-app.listen(5000, () => console.log('Backend running on port 5000'));
+// Send email route
+app.post("/send-email", async (req, res) => {
+  const { name, email, phone, subject, message } = req.body;
+
+  try {
+    const msg = {
+      to: process.env.RECEIVER_EMAIL,  // Receive messages
+      from: process.env.EMAIL_USER, // Verified sender
+      templateId: process.env.SENDGRID_TEMPLATE_ID, // Dynamic Template ID
+      dynamic_template_data: {
+        name,
+        email,
+        phone,
+        subject,
+        message,
+        year: new Date().getFullYear(),
+      },
+    };
+
+    await sgMail.send(msg);
+    console.log("✅ Email sent successfully via SendGrid");
+    res
+      .status(200)
+      .json({ success: true, message: "Email sent successfully!" });
+  } catch (err) {
+    console.error("❌ Error sending email:", err);
+    if (err.response) console.error(err.response.body);
+    res.status(500).json({ success: false, message: "Failed to send email" });
+  }
+});
+
+// Listen on port from .env
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

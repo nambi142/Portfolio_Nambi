@@ -1,15 +1,21 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "start:prod": "NODE_ENV=production node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Muthu Nambi",
   "license": "ISC",
-  "description": "",
+  "description": "Backend server for portfolio contact form using Node.js, Express, and Nodemailer",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",

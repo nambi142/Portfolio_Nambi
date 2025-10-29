@@ -1,6 +1,6 @@
 import React from "react";
 import "../Css/About.css";
-import profileImg from "../assets/image.jpg"; 
+import profileImg from "../assets/handsome1.jpg"; 
 import resumePdf from "../assets/Technical_Resume.pdf"; 
 import { FaEnvelope, FaInstagram, FaLinkedin, FaFacebook, FaGithub } from "react-icons/fa";
 
